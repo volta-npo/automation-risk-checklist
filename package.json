@@ -5,11 +5,14 @@
   "type": "module",
   "description": "A preflight safety checklist for automations that touch customers, money, personal data, or public posts.",
   "scripts": {
-    "test": "node --test",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.js",
     "start": "python3 -m http.server 4173",
-    "validate": "node --test",
-    "certify": "node --test test/v3.test.js",
-    "test:all": "node --test"
+    "validate": "npm test",
+    "certify": "npm run build && node --test test/v3.test.js",
+    "test:all": "npm test",
+    "test:rust": "cargo test --manifest-path backend/rust/Cargo.toml",
+    "test:backend": "npm run test:rust"
   },
   "keywords": [
     "ai-automation",
@@ -22,14 +25,18 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/volta-npo/36-automation-risk-checklist.git"
+    "url": "git+https://github.com/volta-npo/automation-risk-checklist.git"
   },
-  "homepage": "https://volta-npo.github.io/36-automation-risk-checklist/",
+  "homepage": "https://volta-npo.github.io/automation-risk-checklist/",
   "bugs": {
-    "url": "https://github.com/volta-npo/36-automation-risk-checklist/issues"
+    "url": "https://github.com/volta-npo/automation-risk-checklist/issues"
   },
   "author": "Volta OSS Division <volta.npo@gmail.com>",
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "@types/node": "^24.0.0"
   }
 }
